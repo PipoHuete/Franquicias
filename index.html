@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FranchiseCloser - ad+</title>
+    <title>FranchiseCloser - Optimización de Leads</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -16,132 +16,130 @@
         const { useState } = React;
 
         function App() {
-            const [page, setPage] = useState('landing');
-            const [leads, setLeads] = useState([
-                { id: 1, nombre: "Juan Pérez", inversion: "160k€", tipo: "A", estado: "Cita Pendiente" },
-                { id: 2, nombre: "Ana Gómez", inversion: "45k€", tipo: "C", estado: "Descartado" },
-                { id: 3, nombre: "Carlos Ruiz", inversion: "85k€", tipo: "B", estado: "En Revisión" }
-            ]);
+            const [view, setView] = useState('landing');
 
-            // --- VISTA: LANDING PAGE ---
-            if (page === 'landing') {
+            // --- VISTA 1: LANDING SEGÚN TU ESTRATEGIA ---
+            if (view === 'landing') {
                 return (
-                    <div className="min-h-screen bg-white font-sans text-slate-900">
-                        <nav className="flex justify-between items-center p-6 border-b border-slate-100 sticky top-0 bg-white z-50">
+                    <div className="min-h-screen bg-white">
+                        <nav className="p-6 border-b flex justify-between items-center bg-slate-50">
                             <div className="flex items-center gap-2">
-                                <img src="logo.png" className="h-10 w-auto" alt="Logo" onError={(e) => e.target.style.display='none'}/>
-                                <span className="text-2xl font-black tracking-tighter text-slate-800 uppercase">FranchiseCloser</span>
+                                <img src="logo.png" className="h-8 w-auto" alt="Logo" />
+                                <span className="font-bold text-2xl text-slate-800">FranchiseCloser</span>
                             </div>
-                            <button onClick={() => setPage('dashboard')} className="font-semibold text-slate-500 hover:text-orange-600 transition-colors">Acceso Expansión</button>
+                            <button onClick={() => setView('dashboard')} className="bg-slate-800 text-white px-4 py-2 rounded-lg">Acceso Equipo</button>
                         </nav>
-                        <header className="max-w-5xl mx-auto px-6 py-24 text-center">
-                            <h1 className="text-7xl font-extrabold leading-[1.1] mb-8">
-                                Deja de perseguir <span className="text-orange-600 italic">leads fríos.</span>
-                            </h1>
-                            <p className="text-2xl text-slate-500 mb-12 max-w-2xl mx-auto">Cualificamos tus candidatos por capital real y perfil antes de tu primera llamada.</p>
-                            <div className="flex justify-center gap-6">
-                                <button onClick={() => setPage('test')} className="px-10 py-5 bg-orange-600 text-white rounded-2xl font-bold text-xl shadow-2xl shadow-orange-200 hover:-translate-y-1 transition-all">Empezar Cualificación</button>
-                            </div>
-                        </header>
-                    </div>
-                );
-            }
-
-            // --- VISTA: CUESTIONARIO / SCORING ---
-            if (page === 'test') {
-                return (
-                    <div className="min-h-screen bg-slate-50 p-6 flex flex-col items-center justify-center">
-                        <div className="max-w-xl w-full bg-white p-10 rounded-[2rem] shadow-2xl border border-slate-100">
-                            <div className="w-full bg-slate-100 h-2 rounded-full mb-8 overflow-hidden">
-                                <div className="bg-orange-500 h-full w-1/3 transition-all duration-500"></div>
-                            </div>
-                            <h2 className="text-3xl font-bold mb-4 text-slate-800">Candidatura de Expansión</h2>
-                            <p className="text-slate-500 mb-8 font-medium">Paso 1: Capacidad de Inversión</p>
-                            <div className="space-y-6">
-                                <div>
-                                    <label className="block text-sm font-bold text-slate-400 uppercase mb-3">Capital disponible para el proyecto</label>
-                                    <div className="grid gap-4">
-                                        {['Menos de 60.000€', '60.000€ - 150.000€', 'Más de 150.000€'].map((opt) => (
-                                            <button key={opt} onClick={() => alert('Lead Cualificado. Guardando en Dashboard...')} className="text-left p-5 border-2 border-slate-100 rounded-2xl hover:border-orange-500 hover:bg-orange-50 transition-all font-semibold text-slate-700">{opt}</button>
-                                        ))}
-                                    </div>
+                        
+                        <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h1 className="text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
+                                    Optimiza tu expansión con <span className="text-orange-600 font-black">Cualificación Instantánea</span>
+                                </h1>
+                                <p className="text-xl text-slate-600 mb-8 leading-relaxed">
+                                    No pierdas más tiempo en llamadas con candidatos sin capital. Nuestro sistema filtra leads por inversión real y perfil profesional antes de que entren en tu CRM.
+                                </p>
+                                <div className="bg-orange-50 p-6 rounded-2xl border border-orange-100 mb-8">
+                                    <p className="text-orange-800 font-bold text-lg mb-2">🚀 Plan Piloto Especial</p>
+                                    <p className="text-orange-700 text-3xl font-black">99€ <span className="text-sm font-normal">/ mes</span></p>
+                                    <p className="text-orange-600 text-sm mt-1">Implementación en 24h para tu departamento de expansión.</p>
                                 </div>
-                                <button onClick={() => setPage('landing')} className="w-full py-4 text-slate-400 font-bold hover:text-slate-600 transition-colors">← Cancelar</button>
+                                <div className="flex gap-4">
+                                    <button onClick={() => setView('test')} className="px-8 py-4 bg-orange-600 text-white rounded-xl font-bold hover:bg-orange-700 shadow-lg">Pruébalo ahora</button>
+                                    <button className="px-8 py-4 border-2 border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-50">Saber más</button>
+                                </div>
                             </div>
-                        </div>
+                            <div className="relative">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" className="rounded-3xl shadow-2xl border-8 border-white" alt="Dashboard Preview" />
+                            </div>
+                        </section>
                     </div>
                 );
             }
 
-            // --- VISTA: DASHBOARD (PANEL DE LEADS AD+) ---
-            if (page === 'dashboard') {
+            // --- VISTA 2: EL DASHBOARD CON LOS DATOS DE TU TABLA ---
+            if (view === 'dashboard') {
                 return (
-                    <div className="min-h-screen bg-slate-50 flex">
-                        <aside className="w-72 bg-slate-900 text-white p-8 flex flex-col shadow-2xl">
-                            <div onClick={() => setPage('landing')} className="flex items-center gap-2 mb-12 cursor-pointer group">
-                                <span className="material-symbols-outlined text-orange-500 text-3xl group-hover:rotate-12 transition-transform">rocket_launch</span>
-                                <span className="font-black text-xl tracking-tighter">FranchiseCloser</span>
-                            </div>
-                            <nav className="flex-1 space-y-2">
-                                <div className="p-4 bg-orange-600 rounded-2xl flex items-center gap-3 font-bold shadow-lg shadow-orange-900/20">
+                    <div className="min-h-screen bg-slate-100 flex">
+                        <aside className="w-64 bg-slate-900 text-white p-6 hidden md:block">
+                            <h2 className="font-black text-xl mb-10 text-orange-500 uppercase tracking-tighter">FranchiseCloser</h2>
+                            <nav className="space-y-4 text-slate-400 font-semibold">
+                                <div className="text-white bg-slate-800 p-3 rounded-xl flex items-center gap-2">
                                     <span className="material-symbols-outlined">dashboard</span> Panel General
                                 </div>
-                                <div className="p-4 text-slate-400 hover:bg-slate-800 rounded-2xl flex items-center gap-3 font-semibold transition-all">
-                                    <span className="material-symbols-outlined">groups</span> Gestión Leads
+                                <div className="p-3 hover:text-white flex items-center gap-2 cursor-pointer">
+                                    <span className="material-symbols-outlined">groups</span> Leads Expansión
+                                </div>
+                                <div className="p-3 hover:text-white flex items-center gap-2 cursor-pointer">
+                                    <span className="material-symbols-outlined">analytics</span> Métricas MVP
                                 </div>
                             </nav>
-                            <div className="p-4 bg-slate-800 rounded-2xl border border-slate-700 mt-auto">
-                                <p className="text-xs font-bold text-slate-500 mb-1 uppercase tracking-widest text-center">Plan Piloto</p>
-                                <p className="text-center font-bold text-orange-400">99€ / Mes</p>
-                            </div>
                         </aside>
-                        <main className="flex-1 p-12 overflow-y-auto">
-                            <header className="flex justify-between items-center mb-12">
-                                <div>
-                                    <h1 className="text-4xl font-extrabold text-slate-800 tracking-tight">Panel de Leads ad+</h1>
-                                    <p className="text-slate-400 font-medium">Monitorea la expansión de tu franquicia en tiempo real.</p>
+                        
+                        <main className="flex-1 p-8">
+                            <div className="flex justify-between items-center mb-10">
+                                <h2 className="text-3xl font-black text-slate-800">Panel de Leads ad+</h2>
+                                <button onClick={() => setView('landing')} className="text-slate-500 font-bold underline">← Volver</button>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                                <div className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-orange-500">
+                                    <p className="text-slate-400 font-bold text-xs uppercase">Leads Tipo A</p>
+                                    <p className="text-4xl font-black text-slate-800">12</p>
                                 </div>
-                                <button onClick={() => setPage('landing')} className="px-6 py-3 border-2 border-slate-200 rounded-xl font-bold text-slate-500 hover:border-orange-600 hover:text-orange-600 transition-all">Cerrar Sesión</button>
-                            </header>
-                            <div className="grid grid-cols-3 gap-8 mb-12">
-                                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
-                                    <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2">Leads Tipo A</p>
-                                    <p className="text-5xl font-black text-orange-600 leading-none">12</p>
+                                <div className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-slate-300">
+                                    <p className="text-slate-400 font-bold text-xs uppercase">En Onboarding</p>
+                                    <p className="text-4xl font-black text-slate-800">48</p>
                                 </div>
-                                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
-                                    <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2">En Onboarding</p>
-                                    <p className="text-5xl font-black text-slate-800 leading-none">48</p>
-                                </div>
-                                <div className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
-                                    <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-2">Cierre Estimado</p>
-                                    <p className="text-5xl font-black text-green-600 leading-none">24%</p>
+                                <div className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-green-500">
+                                    <p className="text-slate-400 font-bold text-xs uppercase">Cierre Estimado</p>
+                                    <p className="text-4xl font-black text-slate-800">24%</p>
                                 </div>
                             </div>
-                            <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden">
-                                <table className="w-full text-left">
-                                    <thead className="bg-slate-50 border-b border-slate-100">
-                                        <tr>
-                                            <th className="px-8 py-5 font-bold text-slate-400 uppercase text-xs">Candidato</th>
-                                            <th className="px-8 py-5 font-bold text-slate-400 uppercase text-xs">Inversión</th>
-                                            <th className="px-8 py-5 font-bold text-slate-400 uppercase text-xs">Calificación</th>
-                                            <th className="px-8 py-5 font-bold text-slate-400 uppercase text-xs">Estado</th>
+
+                            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                                <table className="w-full">
+                                    <thead className="bg-slate-50 border-b">
+                                        <tr className="text-left">
+                                            <th className="p-4 text-slate-400 text-xs font-bold uppercase">Nombre Lead</th>
+                                            <th className="p-4 text-slate-400 text-xs font-bold uppercase">Inversión</th>
+                                            <th className="p-4 text-slate-400 text-xs font-bold uppercase">Calificación</th>
+                                            <th className="p-4 text-slate-400 text-xs font-bold uppercase">Estado</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
-                                        {leads.map(lead => (
-                                            <tr key={lead.id} className="hover:bg-slate-50/50 transition-colors">
-                                                <td className="px-8 py-6 font-bold">{lead.nombre}</td>
-                                                <td className="px-8 py-6 text-slate-500">{lead.inversion}</td>
-                                                <td className="px-8 py-6">
-                                                    <span className={`px-4 py-1.5 rounded-full text-xs font-black ${lead.tipo === 'A' ? 'bg-orange-100 text-orange-600' : 'bg-slate-100 text-slate-500'}`}>TIPO {lead.tipo}</span>
-                                                </td>
-                                                <td className="px-8 py-6">{lead.estado}</td>
-                                            </tr>
-                                        ))}
+                                    <tbody className="divide-y text-slate-700">
+                                        <tr className="hover:bg-slate-50 transition-colors">
+                                            <td className="p-4 font-bold">Juan Pérez</td>
+                                            <td className="p-4">160.000€</td>
+                                            <td className="p-4"><span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-black">TIPO A</span></td>
+                                            <td className="p-4">Cita Agendada</td>
+                                        </tr>
+                                        <tr className="hover:bg-slate-50 transition-colors">
+                                            <td className="p-4 font-bold">Marta Ruiz</td>
+                                            <td className="p-4">45.000€</td>
+                                            <td className="p-4"><span className="bg-slate-100 text-slate-500 px-3 py-1 rounded-full text-xs font-black">TIPO C</span></td>
+                                            <td className="p-4">En Seguimiento</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </main>
+                    </div>
+                );
+            }
+            
+            // --- VISTA 3: EL CUESTIONARIO ---
+            if (view === 'test') {
+                return (
+                    <div className="min-h-screen bg-orange-600 flex items-center justify-center p-6 text-center">
+                        <div className="bg-white p-10 rounded-[3rem] shadow-2xl max-w-lg w-full">
+                            <h2 className="text-3xl font-black mb-4">Paso 1: Capital</h2>
+                            <p className="text-slate-500 mb-8 font-medium">Para cualificarte, necesitamos saber tu liquidez real.</p>
+                            <div className="grid gap-3">
+                                <button onClick={() => alert('Cualificación completada')} className="w-full p-4 border-2 border-slate-100 rounded-2xl hover:border-orange-500 hover:bg-orange-50 transition-all font-bold">Menos de 60k€</button>
+                                <button onClick={() => alert('¡Lead Tipo A Detectado!')} className="w-full p-4 border-2 border-slate-100 rounded-2xl hover:border-orange-500 hover:bg-orange-50 transition-all font-bold font-black text-orange-600">Más de 150k€</button>
+                            </div>
+                            <button onClick={() => setView('landing')} className="mt-8 text-slate-400 font-bold uppercase tracking-widest text-xs">← Volver al inicio</button>
+                        </div>
                     </div>
                 );
             }
