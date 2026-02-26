@@ -1,152 +1,1515 @@
+
+Franchise closer · HTML
+Copiar
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FranchiseCloser - Optimización de Leads</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FranchiseCloser — Powered by ad+</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg: #0a0b0f;
+    --surface: #12141a;
+    --surface2: #1a1d26;
+    --border: #252830;
+    --border2: #2e3240;
+    --text: #e8eaf0;
+    --text2: #9098b0;
+    --text3: #5a6278;
+    --accent: #00d4ff;
+    --accent2: #0088ff;
+    --green: #00e87b;
+    --yellow: #ffd947;
+    --red: #ff4d6a;
+    --orange: #ff8c42;
+    --a-color: #00e87b;
+    --b-color: #ffd947;
+    --c-color: #ff4d6a;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 48px rgba(0,0,0,0.6);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* Animations */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  @keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+  @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+
+  .animate-in { animation: fadeIn 0.4s ease forwards; }
+  .slide-in { animation: slideIn 0.3s ease forwards; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: var(--radius); border: none;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    color: #000; font-weight: 600;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,212,255,0.3); }
+  .btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: var(--surface2); color: var(--text); }
+  .btn-success { background: rgba(0,232,123,0.15); color: var(--green); border: 1px solid rgba(0,232,123,0.3); }
+  .btn-success:hover { background: rgba(0,232,123,0.25); }
+  .btn-danger { background: rgba(255,77,106,0.15); color: var(--red); border: 1px solid rgba(255,77,106,0.3); }
+  .btn-warning { background: rgba(255,217,71,0.15); color: var(--yellow); border: 1px solid rgba(255,217,71,0.3); }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+  .btn-lg { padding: 14px 32px; font-size: 16px; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* Cards */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 20px;
+  }
+  .card-sm { padding: 16px; border-radius: var(--radius); }
+
+  /* Labels */
+  .label {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.5px;
+  }
+  .label-A { background: rgba(0,232,123,0.15); color: var(--a-color); border: 1px solid rgba(0,232,123,0.3); }
+  .label-B { background: rgba(255,217,71,0.15); color: var(--b-color); border: 1px solid rgba(255,217,71,0.3); }
+  .label-C { background: rgba(255,77,106,0.15); color: var(--c-color); border: 1px solid rgba(255,77,106,0.3); }
+
+  /* Status badges */
+  .status-new { background: rgba(0,136,255,0.15); color: var(--accent2); border: 1px solid rgba(0,136,255,0.3); }
+  .status-contacted { background: rgba(0,212,255,0.15); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); }
+  .status-meeting { background: rgba(0,232,123,0.15); color: var(--green); border: 1px solid rgba(0,232,123,0.3); }
+  .status-no_answer { background: rgba(255,140,66,0.15); color: var(--orange); border: 1px solid rgba(255,140,66,0.3); }
+  .status-discarded { background: rgba(90,98,120,0.2); color: var(--text3); border: 1px solid var(--border); }
+
+  /* Inputs */
+  .input {
+    width: 100%; padding: 10px 14px; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+  }
+  .input:focus { border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(0,136,255,0.1); }
+  .input::placeholder { color: var(--text3); }
+  select.input { cursor: pointer; }
+
+  /* Table */
+  .table-wrapper { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600;
+    color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px;
+    border-bottom: 1px solid var(--border); white-space: nowrap;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  td { padding: 12px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
+
+  /* Score bar */
+  .score-bar { width: 48px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; display: inline-block; vertical-align: middle; margin-left: 6px; }
+  .score-fill { height: 100%; border-radius: 2px; }
+
+  /* Nav */
+  .nav { 
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,11,15,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; display: flex; flex-direction: column; line-height: 1; }
+  .nav-logo span.powered { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 400; color: var(--text3); letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* Sidebar */
+  .sidebar { 
+    position: fixed; top: 60px; left: 0; bottom: 0; width: 220px;
+    background: var(--surface); border-right: 1px solid var(--border);
+    padding: 20px 12px; display: flex; flex-direction: column; gap: 4px; overflow-y: auto;
+  }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+    border-radius: var(--radius); font-size: 14px; cursor: pointer;
+    transition: all 0.15s; color: var(--text2); font-weight: 400;
+  }
+  .sidebar-item:hover { background: var(--surface2); color: var(--text); }
+  .sidebar-item.active { background: rgba(0,136,255,0.12); color: var(--accent); font-weight: 500; }
+  .sidebar-section { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px 4px; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  .main-content { margin-left: 220px; padding-top: 60px; min-height: 100vh; }
+  .page { padding: 28px; animation: fadeIn 0.3s ease; }
+
+  /* KPI Cards */
+  .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 18px; position: relative; overflow: hidden;
+  }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .kpi-card.kpi-blue::before { background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+  .kpi-card.kpi-green::before { background: var(--green); }
+  .kpi-card.kpi-yellow::before { background: var(--yellow); }
+  .kpi-card.kpi-red::before { background: var(--red); }
+  .kpi-label { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; font-family: 'Plus Jakarta Sans', sans-serif; margin-bottom: 8px; }
+  .kpi-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .kpi-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  /* Timeline */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item { display: flex; gap: 12px; padding: 10px 0; }
+  .timeline-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; position: relative; }
+  .timeline-dot::before { content: ''; position: absolute; top: 8px; left: 3px; width: 1px; height: 100%; background: var(--border); }
+  .timeline-item:last-child .timeline-dot::before { display: none; }
+  .timeline-content { flex: 1; padding-bottom: 10px; }
+  .timeline-time { font-size: 11px; color: var(--text3); }
+  .timeline-text { font-size: 13px; margin-top: 2px; }
+
+  /* Lead detail */
+  .lead-grid { display: grid; grid-template-columns: 1fr 360px; gap: 20px; }
+
+  /* Progress indicator */
+  .progress-steps { display: flex; gap: 6px; margin-bottom: 28px; }
+  .step { flex: 1; height: 3px; border-radius: 2px; background: var(--border); transition: background 0.3s; }
+  .step.done { background: var(--accent2); }
+  .step.active { background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+
+  /* Form groups */
+  .form-group { margin-bottom: 20px; }
+  .form-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--text2); }
+  .form-hint { font-size: 11px; color: var(--text3); margin-top: 4px; }
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
+  .radio-option {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer;
+    transition: all 0.15s; font-size: 13px;
+  }
+  .radio-option:hover { border-color: var(--border2); background: var(--surface2); }
+  .radio-option.selected { border-color: var(--accent2); background: rgba(0,136,255,0.08); color: var(--text); }
+  .radio-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .radio-dot.selected { border-color: var(--accent2); background: var(--accent2); }
+  .radio-dot.selected::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #000; }
+
+  /* Chip */
+  .chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); }
+
+  /* Landing styles */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding: 80px 24px 60px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; 
+    background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(0,136,255,0.15), transparent),
+                radial-gradient(ellipse 40% 40% at 80% 60%, rgba(0,212,255,0.08), transparent);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-content { max-width: 760px; text-align: center; position: relative; z-index: 1; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid rgba(0,212,255,0.3); border-radius: 20px; font-size: 12px; color: var(--accent); margin-bottom: 28px; }
+  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  .hero-title { font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 1.05; margin-bottom: 20px; }
+  .hero-title .gradient { background: linear-gradient(135deg, #fff 30%, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-sub { font-size: 18px; color: var(--text2); margin-bottom: 36px; line-height: 1.6; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .pricing-badge { display: inline-flex; align-items: center; gap: 16px; padding: 16px 28px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 32px; }
+  .price-item { text-align: center; }
+  .price-amount { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 700; }
+  .price-desc { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .price-divider { width: 1px; height: 40px; background: var(--border); }
+  
+  /* Tooltip */
+  .tooltip { position: relative; }
+  .tooltip-text {
+    position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 10px; font-size: 11px; white-space: nowrap; color: var(--text2);
+    pointer-events: none; opacity: 0; transition: opacity 0.15s;
+  }
+  .tooltip:hover .tooltip-text { opacity: 1; }
+
+  /* Overlay */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px;
+    animation: fadeIn 0.2s ease;
+  }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border2);
+    border-radius: var(--radius-lg); padding: 28px; max-width: 480px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    animation: fadeIn 0.25s ease;
+  }
+
+  /* Notification */
+  .notif {
+    position: fixed; top: 76px; right: 20px; z-index: 300;
+    display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+    background: var(--surface2); border: 1px solid var(--border2);
+    border-radius: var(--radius); box-shadow: var(--shadow); font-size: 13px;
+    animation: slideIn 0.3s ease; max-width: 320px;
+  }
+  .notif-success { border-left: 3px solid var(--green); }
+  .notif-error { border-left: 3px solid var(--red); }
+  .notif-info { border-left: 3px solid var(--accent2); }
+
+  /* Empty state */
+  .empty { text-align: center; padding: 60px 20px; color: var(--text3); }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.4; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .lead-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 32px; }
+  }
+</style>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="text/babel">
-        const { useState } = React;
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useCallback, useRef } = React;
 
-        function App() {
-            const [view, setView] = useState('landing');
+// ==================== DATA & LOGIC ====================
 
-            // --- VISTA 1: LANDING SEGÚN TU ESTRATEGIA ---
-            if (view === 'landing') {
-                return (
-                    <div className="min-h-screen bg-white">
-                        <nav className="p-6 border-b flex justify-between items-center bg-slate-50">
-                            <div className="flex items-center gap-2">
-                                <img src="logo.png" className="h-8 w-auto" alt="Logo" />
-                                <span className="font-bold text-2xl text-slate-800">FranchiseCloser</span>
-                            </div>
-                            <button onClick={() => setView('dashboard')} className="bg-slate-800 text-white px-4 py-2 rounded-lg">Acceso Equipo</button>
-                        </nav>
-                        
-                        <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
-                            <div>
-                                <h1 className="text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
-                                    Optimiza tu expansión con <span className="text-orange-600 font-black">Cualificación Instantánea</span>
-                                </h1>
-                                <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                                    No pierdas más tiempo en llamadas con candidatos sin capital. Nuestro sistema filtra leads por inversión real y perfil profesional antes de que entren en tu CRM.
-                                </p>
-                                <div className="bg-orange-50 p-6 rounded-2xl border border-orange-100 mb-8">
-                                    <p className="text-orange-800 font-bold text-lg mb-2">🚀 Plan Piloto Especial</p>
-                                    <p className="text-orange-700 text-3xl font-black">99€ <span className="text-sm font-normal">/ mes</span></p>
-                                    <p className="text-orange-600 text-sm mt-1">Implementación en 24h para tu departamento de expansión.</p>
-                                </div>
-                                <div className="flex gap-4">
-                                    <button onClick={() => setView('test')} className="px-8 py-4 bg-orange-600 text-white rounded-xl font-bold hover:bg-orange-700 shadow-lg">Pruébalo ahora</button>
-                                    <button className="px-8 py-4 border-2 border-slate-200 rounded-xl font-bold text-slate-600 hover:bg-slate-50">Saber más</button>
-                                </div>
-                            </div>
-                            <div className="relative">
-                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" className="rounded-3xl shadow-2xl border-8 border-white" alt="Dashboard Preview" />
-                            </div>
-                        </section>
+const MOCK_LEADS = [
+  {
+    id: '1', full_name: 'Carlos Martínez', phone: '+34 612 345 678', email: 'carlos@email.com',
+    province_city: 'Madrid', zone_id: 'z1', created_at: new Date(Date.now() - 15 * 60000).toISOString(),
+    score: 88, label: 'A', status: 'new', owner_id: null, owner_name: null,
+    q_deadline: '0-3m', q_capital: '+90k', q_financing: 'yes', q_downpayment_pct: '>=40',
+    q_profile: 'investor', q_manager_option: 'yes', q_demanding_hours: 'yes',
+    q_experience: 'yes', q_people_mgmt: 'yes', q_recent_intent: 'yes',
+    contact_preference: 'phone',
+    score_reasons: ['Entrada ≥40% con capital alto (+90k)', 'Plazo inmediato (0–3 meses)', 'Inversor activo con encargado definido'],
+    risk_flags: ['Validar capacidad de financiación', 'Confirmar disponibilidad para gestión activa'],
+    call_script: 'Buenos días Carlos, le llamo de parte de nuestro equipo de franquicias. Vi que completó su candidatura hoy y su perfil destaca especialmente por su sólida capacidad de inversión. Me gustaría contarle sobre nuestras ubicaciones disponibles en Madrid...',
+    first_attempt_deadline: new Date(Date.now() + 90 * 60000).toISOString(),
+    first_attempt_at: null,
+    events: [
+      { type: 'lead_created', actor: 'Sistema', at: new Date(Date.now() - 15 * 60000).toISOString(), desc: 'Lead creado — Score 88 (A)' }
+    ]
+  },
+  {
+    id: '2', full_name: 'Ana García', phone: '+34 689 234 567', email: 'ana@email.com',
+    province_city: 'Barcelona', zone_id: 'z2', created_at: new Date(Date.now() - 2 * 3600000).toISOString(),
+    score: 72, label: 'A', status: 'contacted', owner_id: 'u1', owner_name: 'Pablo R.',
+    q_deadline: '0-3m', q_capital: '60-90k', q_financing: 'yes', q_downpayment_pct: '30-39',
+    q_profile: 'mixed', q_manager_option: 'yes', q_demanding_hours: 'yes',
+    q_experience: 'some', q_people_mgmt: 'yes', q_recent_intent: 'yes',
+    contact_preference: 'email',
+    score_reasons: ['Plazo urgente con financiación aprobada', 'Perfil mixto con encargado', 'Capital 60–90k con apalancamiento'],
+    risk_flags: ['Confirmar timeline de financiación', 'Validar experiencia sectorial'],
+    call_script: 'Hola Ana, soy del equipo comercial. Su candidatura muestra un perfil muy interesante con capacidad real de avanzar...',
+    first_attempt_deadline: new Date(Date.now() + 30 * 60000).toISOString(),
+    first_attempt_at: new Date(Date.now() - 1.5 * 3600000).toISOString(),
+    events: [
+      { type: 'lead_created', actor: 'Sistema', at: new Date(Date.now() - 2 * 3600000).toISOString(), desc: 'Lead creado — Score 72 (A)' },
+      { type: 'owner_taken', actor: 'Pablo R.', at: new Date(Date.now() - 1.8 * 3600000).toISOString(), desc: 'Lead tomado por Pablo R.' },
+      { type: 'attempt', actor: 'Pablo R.', at: new Date(Date.now() - 1.5 * 3600000).toISOString(), desc: 'Intento 1 registrado' },
+      { type: 'status_change', actor: 'Pablo R.', at: new Date(Date.now() - 1.2 * 3600000).toISOString(), desc: 'Estado → Contactado' },
+    ]
+  },
+  {
+    id: '3', full_name: 'Roberto Silva', phone: '+34 634 567 890', email: 'roberto@email.com',
+    province_city: 'Valencia', zone_id: 'z1', created_at: new Date(Date.now() - 5 * 3600000).toISOString(),
+    score: 51, label: 'B', status: 'meeting', owner_id: 'u2', owner_name: 'Laura M.',
+    q_deadline: '3-6m', q_capital: '60-90k', q_financing: 'in_progress', q_downpayment_pct: '30-39',
+    q_profile: 'operational', q_manager_option: 'thinking', q_demanding_hours: 'yes',
+    q_experience: 'some', q_people_mgmt: 'some', q_recent_intent: 'no',
+    contact_preference: 'phone',
+    score_reasons: ['Capital moderado con financiación en trámite', 'Plazo 3–6 meses realista', 'Experiencia parcial en sector'],
+    risk_flags: ['Financiación aún no confirmada', 'Encargado no definido'],
+    call_script: 'Buenos días Roberto, llamamos para continuar la conversación sobre su candidatura...',
+    first_attempt_deadline: null,
+    first_attempt_at: null,
+    events: [
+      { type: 'lead_created', actor: 'Sistema', at: new Date(Date.now() - 5 * 3600000).toISOString(), desc: 'Lead creado — Score 51 (B)' },
+      { type: 'owner_taken', actor: 'Laura M.', at: new Date(Date.now() - 4.5 * 3600000).toISOString(), desc: 'Lead tomado por Laura M.' },
+      { type: 'status_change', actor: 'Laura M.', at: new Date(Date.now() - 2 * 3600000).toISOString(), desc: 'Estado → Cita' },
+    ]
+  },
+  {
+    id: '4', full_name: 'Marta López', phone: '+34 665 432 109', email: 'marta@email.com',
+    province_city: 'Sevilla', zone_id: 'z3', created_at: new Date(Date.now() - 8 * 3600000).toISOString(),
+    score: 24, label: 'C', status: 'discarded', owner_id: 'u1', owner_name: 'Pablo R.',
+    q_deadline: '+12m', q_capital: '<20k', q_financing: 'no', q_downpayment_pct: '<20',
+    q_profile: 'operational', q_manager_option: 'no', q_demanding_hours: 'no',
+    q_experience: 'nothing', q_people_mgmt: 'no', q_recent_intent: 'no',
+    contact_preference: 'email',
+    score_reasons: ['Capital insuficiente (<20k)', 'Sin financiación disponible', 'Plazo muy largo (+12 meses)'],
+    risk_flags: ['Capital muy por debajo del mínimo', 'Sin intención inmediata confirmada'],
+    call_script: '',
+    first_attempt_deadline: null,
+    first_attempt_at: null,
+    events: [
+      { type: 'lead_created', actor: 'Sistema', at: new Date(Date.now() - 8 * 3600000).toISOString(), desc: 'Lead creado — Score 24 (C)' },
+      { type: 'status_change', actor: 'Pablo R.', at: new Date(Date.now() - 6 * 3600000).toISOString(), desc: 'Estado → Descartado' },
+    ]
+  },
+  {
+    id: '5', full_name: 'Javier Ruiz', phone: '+34 611 987 654', email: 'javier@email.com',
+    province_city: 'Bilbao', zone_id: 'z2', created_at: new Date(Date.now() - 25 * 60000).toISOString(),
+    score: 81, label: 'A', status: 'new', owner_id: null, owner_name: null,
+    q_deadline: '0-3m', q_capital: '+90k', q_financing: 'yes', q_downpayment_pct: '>=40',
+    q_profile: 'investor', q_manager_option: 'yes', q_demanding_hours: 'yes',
+    q_experience: 'nothing', q_people_mgmt: 'yes', q_recent_intent: 'yes',
+    contact_preference: 'phone',
+    score_reasons: ['Inversor activo con capital alto', 'Financiación confirmada', 'Intención inmediata (0–3 meses)'],
+    risk_flags: ['Sin experiencia en hostelería', 'Validar conocimiento del modelo'],
+    call_script: 'Hola Javier, le llamo porque acaba de completar su candidatura con un perfil de inversor muy interesante...',
+    first_attempt_deadline: new Date(Date.now() + 80 * 60000).toISOString(),
+    first_attempt_at: null,
+    events: [
+      { type: 'lead_created', actor: 'Sistema', at: new Date(Date.now() - 25 * 60000).toISOString(), desc: 'Lead creado — Score 81 (A)' },
+      { type: 'email_sent', actor: 'Sistema', at: new Date(Date.now() - 24 * 60000).toISOString(), desc: 'Email enviado al equipo — nuevo Lead A sin owner' },
+    ]
+  },
+];
+
+// SCORING LOGIC
+function calcScore(answers) {
+  let score = 0;
+  const dp = answers.q_downpayment_pct;
+  if (dp === '>=40') score += 30;
+  else if (dp === '30-39') score += 20;
+  else if (dp === '20-29') score += 10;
+  else if (dp === '<20') score += 0;
+
+  const cap = answers.q_capital;
+  if (cap === '+90k') score += 20;
+  else if (cap === '60-90k') score += 14;
+  else if (cap === '20-60k') score += 7;
+  else score += 0;
+
+  const fin = answers.q_financing;
+  if (fin === 'yes') score += 15;
+  else if (fin === 'in_progress') score += 8;
+  else score += 0;
+
+  const dl = answers.q_deadline;
+  if (dl === '0-3m') score += 15;
+  else if (dl === '3-6m') score += 10;
+  else if (dl === '6-12m') score += 4;
+  else score += 0;
+
+  if (answers.q_profile === 'investor') score += 6;
+  else if (answers.q_profile === 'mixed') score += 4;
+  else score += 2;
+  if (answers.q_manager_option === 'yes') score += 4;
+  else if (answers.q_manager_option === 'thinking') score += 2;
+
+  if (answers.q_recent_intent === 'yes') score += 5;
+
+  if (answers.q_experience === 'yes') score += 3;
+  else if (answers.q_experience === 'some') score += 2;
+  if (answers.q_people_mgmt === 'yes') score += 2;
+
+  return Math.min(100, score);
+}
+
+function calcLabel(answers, score) {
+  const dp = answers.q_downpayment_pct;
+  if (dp === '<20') return 'C';
+
+  const strongProfile =
+    (answers.q_capital === '+90k' || (answers.q_capital === '60-90k' && answers.q_financing === 'yes')) &&
+    answers.q_financing === 'yes' &&
+    answers.q_deadline === '0-3m' &&
+    (answers.q_profile === 'mixed' || answers.q_profile === 'investor') &&
+    answers.q_manager_option !== 'no';
+
+  const activeInvestorNoExp =
+    answers.q_profile === 'investor' &&
+    (answers.q_capital === '+90k' || answers.q_capital === '60-90k') &&
+    (answers.q_financing === 'yes' || answers.q_financing === 'in_progress') &&
+    (dp === '>=40' || dp === '30-39') &&
+    answers.q_manager_option !== 'no';
+
+  if (dp === '>=40' && score >= 55) return 'A';
+  if (dp === '30-39' && score >= 50) return 'A';
+  if (dp === '20-29' && strongProfile) return 'A';
+  if (activeInvestorNoExp && dp !== '<20') return 'A';
+
+  if (score >= 40) return 'B';
+  return 'C';
+}
+
+// UTILS
+const fmtDate = (iso) => {
+  const d = new Date(iso);
+  return d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' }) + ' ' +
+    d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+};
+const fmtRelative = (iso) => {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return 'Ahora';
+  if (m < 60) return `Hace ${m}m`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `Hace ${h}h`;
+  return `Hace ${Math.floor(h/24)}d`;
+};
+const statusLabels = { new: 'Nuevo', contacted: 'Contactado', meeting: 'Cita', no_answer: 'No responde', discarded: 'Descartado' };
+const statusColors = { new: 'status-new', contacted: 'status-contacted', meeting: 'status-meeting', no_answer: 'status-no_answer', discarded: 'status-discarded' };
+
+// ==================== COMPONENTS ====================
+
+function Notif({ msg, type = 'success', onClose }) {
+  useEffect(() => { const t = setTimeout(onClose, 3500); return () => clearTimeout(t); }, []);
+  return (
+    <div className={`notif notif-${type}`}>
+      <span>{type === 'success' ? '✓' : type === 'info' ? 'ℹ' : '!'}</span>
+      <span>{msg}</span>
+      <button onClick={onClose} style={{ marginLeft: 'auto', background: 'none', border: 'none', color: 'var(--text3)', cursor: 'pointer', fontSize: 16 }}>×</button>
+    </div>
+  );
+}
+
+function ScoreBar({ score, label }) {
+  const color = label === 'A' ? 'var(--a-color)' : label === 'B' ? 'var(--b-color)' : 'var(--c-color)';
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+      <span style={{ fontFamily: 'Syne', fontWeight: 600, fontSize: 13 }}>{score}</span>
+      <span className="score-bar">
+        <span className="score-fill" style={{ width: `${score}%`, background: color }} />
+      </span>
+    </span>
+  );
+}
+
+function SLACountdown({ deadline }) {
+  const [remaining, setRemaining] = useState('');
+  useEffect(() => {
+    const update = () => {
+      const diff = new Date(deadline).getTime() - Date.now();
+      if (diff <= 0) { setRemaining('⚠ Vencido'); return; }
+      const m = Math.floor(diff / 60000);
+      const h = Math.floor(m / 60);
+      if (h > 0) setRemaining(`${h}h ${m % 60}m`);
+      else setRemaining(`${m}m`);
+    };
+    update();
+    const t = setInterval(update, 30000);
+    return () => clearInterval(t);
+  }, [deadline]);
+  const isUrgent = new Date(deadline).getTime() - Date.now() < 30 * 60000;
+  return (
+    <span style={{ fontSize: 11, color: isUrgent ? 'var(--red)' : 'var(--yellow)', fontWeight: 500 }}>
+      {isUrgent && '⚡ '}{remaining}
+    </span>
+  );
+}
+
+// ==================== PAGES ====================
+
+function LandingPage({ onNav }) {
+  const [showDemo, setShowDemo] = useState(false);
+  const [form, setForm] = useState({ company: '', name: '', email: '', phone: '', leads_week: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setShowDemo(false), 3000);
+  };
+
+  const features = [
+    { icon: '🎯', title: 'Scoring A/B/C', desc: 'Criterios objetivos y transparentes. Score 0–100 con motivos visibles.' },
+    { icon: '⚡', title: 'SLA de Intento 1', desc: 'Cada Lead A tiene un deadline de primera llamada. El sistema escala si no se cumple.' },
+    { icon: '👤', title: 'Ownership claro', desc: 'Un lead, un dueño. Sin confusión sobre quién lo atiende.' },
+    { icon: '📊', title: 'Panel en tiempo real', desc: 'KPIs del piloto visibles. Rango semana/mes. Tabla priorizada.' },
+    { icon: '📧', title: 'Escalado automático', desc: 'Si nadie toma un Lead A en 60 min, el manager recibe email al instante.' },
+    { icon: '🔒', title: 'RGPD nativo', desc: 'Consentimiento explícito. Auditoría completa. Cumplimiento desde el primer día.' },
+  ];
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
+      {/* Nav */}
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(10,11,15,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--border)', padding: '0 40px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="nav-logo">
+          <span style={{ background: 'linear-gradient(135deg, #fff, var(--accent))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FranchiseCloser</span>
+          <span className="powered">Powered by ad+</span>
+        </div>
+        <div style={{ display: 'flex', gap: 12 }}>
+          <button className="btn btn-ghost btn-sm" onClick={() => onNav('apply')}>Ver formulario</button>
+          <button className="btn btn-primary btn-sm" onClick={() => setShowDemo(true)}>Solicitar demo</button>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section className="hero">
+        <div className="hero-bg" />
+        <div className="hero-grid" />
+        <div className="hero-content animate-in">
+          <div className="hero-badge">
+            <span className="hero-badge-dot" />
+            Piloto 30 días · Resultados desde el día 1
+          </div>
+          <h1 className="hero-title">
+            <span className="gradient">Respuesta rápida</span><br />
+            a leads con inversión real
+          </h1>
+          <p className="hero-sub">
+            FranchiseCloser prioriza automáticamente los candidatos con más probabilidad de cerrar, fuerza la atención rápida y mide cada paso del proceso.
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
+            <div className="pricing-badge">
+              <div className="price-item">
+                <div className="price-amount">490€</div>
+                <div className="price-desc">Setup único</div>
+              </div>
+              <div className="price-divider" />
+              <div className="price-item">
+                <div className="price-amount">199€<span style={{ fontSize: 14, color: 'var(--text2)' }}>/mes</span></div>
+                <div className="price-desc">A partir del mes 2</div>
+              </div>
+              <div className="price-divider" />
+              <div className="price-item">
+                <div className="price-amount" style={{ fontSize: 14, color: 'var(--text2)' }}>20–50</div>
+                <div className="price-desc">Leads/semana ideal</div>
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button className="btn btn-primary btn-lg" onClick={() => setShowDemo(true)}>Solicitar demo</button>
+            <button className="btn btn-ghost btn-lg" onClick={() => onNav('apply')}>Ver formulario candidatos</button>
+          </div>
+          <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text3)' }}>En 10 minutos verás el panel y un ejemplo de Lead A.</p>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section style={{ padding: '80px 40px', maxWidth: 1100, margin: '0 auto' }}>
+        <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 700, marginBottom: 8 }}>Todo lo que necesitas para el piloto</h2>
+        <p style={{ textAlign: 'center', color: 'var(--text2)', marginBottom: 48 }}>Sin CRM complejo. Sin sobreingeniería. Solo el flujo que cierra franquicias.</p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
+          {features.map((f, i) => (
+            <div key={i} className="card" style={{ animationDelay: `${i * 0.08}s` }}>
+              <div style={{ fontSize: 28, marginBottom: 12 }}>{f.icon}</div>
+              <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 6 }}>{f.title}</h3>
+              <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.6 }}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section style={{ padding: '60px 40px', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 12 }}>¿Tienes 20–50 leads/semana y pierdes los buenos por falta de respuesta?</h2>
+        <p style={{ color: 'var(--text2)', marginBottom: 24 }}>FranchiseCloser es exactamente para eso.</p>
+        <button className="btn btn-primary btn-lg" onClick={() => setShowDemo(true)}>Solicitar demo gratuita</button>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ padding: '24px 40px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: 12, color: 'var(--text3)' }}>© 2025 FranchiseCloser · RGPD/EU</span>
+        <span style={{ fontSize: 11, color: 'var(--text3)' }}>Powered by ad+</span>
+      </footer>
+
+      {/* Demo modal */}
+      {showDemo && (
+        <div className="overlay" onClick={e => e.target === e.currentTarget && setShowDemo(false)}>
+          <div className="modal">
+            {submitted ? (
+              <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
+                <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>¡Solicitud recibida!</h3>
+                <p style={{ color: 'var(--text2)', fontSize: 14 }}>Te contactamos en menos de 24h para agendar la demo.</p>
+              </div>
+            ) : (
+              <>
+                <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 6 }}>Solicitar demo</h3>
+                <p style={{ color: 'var(--text2)', fontSize: 13, marginBottom: 24 }}>En 10 minutos verás el panel y un Lead A real.</p>
+                <form onSubmit={handleSubmit}>
+                  <div className="form-group">
+                    <label className="form-label">Empresa *</label>
+                    <input className="input" required placeholder="Nombre de la franquicia" value={form.company} onChange={e => setForm({...form, company: e.target.value})} />
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                    <div className="form-group">
+                      <label className="form-label">Nombre *</label>
+                      <input className="input" required placeholder="Tu nombre" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
                     </div>
-                );
-            }
-
-            // --- VISTA 2: EL DASHBOARD CON LOS DATOS DE TU TABLA ---
-            if (view === 'dashboard') {
-                return (
-                    <div className="min-h-screen bg-slate-100 flex">
-                        <aside className="w-64 bg-slate-900 text-white p-6 hidden md:block">
-                            <h2 className="font-black text-xl mb-10 text-orange-500 uppercase tracking-tighter">FranchiseCloser</h2>
-                            <nav className="space-y-4 text-slate-400 font-semibold">
-                                <div className="text-white bg-slate-800 p-3 rounded-xl flex items-center gap-2">
-                                    <span className="material-symbols-outlined">dashboard</span> Panel General
-                                </div>
-                                <div className="p-3 hover:text-white flex items-center gap-2 cursor-pointer">
-                                    <span className="material-symbols-outlined">groups</span> Leads Expansión
-                                </div>
-                                <div className="p-3 hover:text-white flex items-center gap-2 cursor-pointer">
-                                    <span className="material-symbols-outlined">analytics</span> Métricas MVP
-                                </div>
-                            </nav>
-                        </aside>
-                        
-                        <main className="flex-1 p-8">
-                            <div className="flex justify-between items-center mb-10">
-                                <h2 className="text-3xl font-black text-slate-800">Panel de Leads ad+</h2>
-                                <button onClick={() => setView('landing')} className="text-slate-500 font-bold underline">← Volver</button>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                <div className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-orange-500">
-                                    <p className="text-slate-400 font-bold text-xs uppercase">Leads Tipo A</p>
-                                    <p className="text-4xl font-black text-slate-800">12</p>
-                                </div>
-                                <div className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-slate-300">
-                                    <p className="text-slate-400 font-bold text-xs uppercase">En Onboarding</p>
-                                    <p className="text-4xl font-black text-slate-800">48</p>
-                                </div>
-                                <div className="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-green-500">
-                                    <p className="text-slate-400 font-bold text-xs uppercase">Cierre Estimado</p>
-                                    <p className="text-4xl font-black text-slate-800">24%</p>
-                                </div>
-                            </div>
-
-                            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                                <table className="w-full">
-                                    <thead className="bg-slate-50 border-b">
-                                        <tr className="text-left">
-                                            <th className="p-4 text-slate-400 text-xs font-bold uppercase">Nombre Lead</th>
-                                            <th className="p-4 text-slate-400 text-xs font-bold uppercase">Inversión</th>
-                                            <th className="p-4 text-slate-400 text-xs font-bold uppercase">Calificación</th>
-                                            <th className="p-4 text-slate-400 text-xs font-bold uppercase">Estado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y text-slate-700">
-                                        <tr className="hover:bg-slate-50 transition-colors">
-                                            <td className="p-4 font-bold">Juan Pérez</td>
-                                            <td className="p-4">160.000€</td>
-                                            <td className="p-4"><span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-black">TIPO A</span></td>
-                                            <td className="p-4">Cita Agendada</td>
-                                        </tr>
-                                        <tr className="hover:bg-slate-50 transition-colors">
-                                            <td className="p-4 font-bold">Marta Ruiz</td>
-                                            <td className="p-4">45.000€</td>
-                                            <td className="p-4"><span className="bg-slate-100 text-slate-500 px-3 py-1 rounded-full text-xs font-black">TIPO C</span></td>
-                                            <td className="p-4">En Seguimiento</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </main>
+                    <div className="form-group">
+                      <label className="form-label">Teléfono *</label>
+                      <input className="input" required placeholder="+34 6XX XXX XXX" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
                     </div>
-                );
-            }
-            
-            // --- VISTA 3: EL CUESTIONARIO ---
-            if (view === 'test') {
-                return (
-                    <div className="min-h-screen bg-orange-600 flex items-center justify-center p-6 text-center">
-                        <div className="bg-white p-10 rounded-[3rem] shadow-2xl max-w-lg w-full">
-                            <h2 className="text-3xl font-black mb-4">Paso 1: Capital</h2>
-                            <p className="text-slate-500 mb-8 font-medium">Para cualificarte, necesitamos saber tu liquidez real.</p>
-                            <div className="grid gap-3">
-                                <button onClick={() => alert('Cualificación completada')} className="w-full p-4 border-2 border-slate-100 rounded-2xl hover:border-orange-500 hover:bg-orange-50 transition-all font-bold">Menos de 60k€</button>
-                                <button onClick={() => alert('¡Lead Tipo A Detectado!')} className="w-full p-4 border-2 border-slate-100 rounded-2xl hover:border-orange-500 hover:bg-orange-50 transition-all font-bold font-black text-orange-600">Más de 150k€</button>
-                            </div>
-                            <button onClick={() => setView('landing')} className="mt-8 text-slate-400 font-bold uppercase tracking-widest text-xs">← Volver al inicio</button>
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Email *</label>
+                    <input className="input" type="email" required placeholder="email@empresa.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Leads por semana (aprox.)</label>
+                    <input className="input" placeholder="Ej: 30" value={form.leads_week} onChange={e => setForm({...form, leads_week: e.target.value})} />
+                  </div>
+                  <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
+                    <button type="button" className="btn btn-ghost" style={{ flex: 1 }} onClick={() => setShowDemo(false)}>Cancelar</button>
+                    <button type="submit" className="btn btn-primary" style={{ flex: 2 }}>Enviar solicitud</button>
+                  </div>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ==================== APPLY FORM ====================
+function ApplyForm({ onNav }) {
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [result, setResult] = useState(null);
+  const [rgpd, setRgpd] = useState(false);
+  const [contact, setContact] = useState({ full_name: '', phone: '', email: '', contact_preference: 'phone' });
+
+  const questions = [
+    {
+      key: 'q_deadline', q: '¿En qué plazo estás pensando en abrir?',
+      opts: [{ v: '0-3m', l: '0–3 meses' }, { v: '3-6m', l: '3–6 meses' }, { v: '6-12m', l: '6–12 meses' }, { v: '+12m', l: 'Más de 12 meses' }]
+    },
+    {
+      key: 'q_capital', q: '¿De cuánto capital propio dispones (sin financiación)?',
+      opts: [{ v: '+90k', l: 'Más de 90.000 €' }, { v: '60-90k', l: '60.000–90.000 €' }, { v: '20-60k', l: '20.000–60.000 €' }, { v: '<20k', l: 'Menos de 20.000 €' }]
+    },
+    {
+      key: 'q_financing', q: '¿Tienes o estás tramitando financiación bancaria?',
+      opts: [{ v: 'yes', l: 'Sí, aprobada o pre-aprobada' }, { v: 'in_progress', l: 'En trámite' }, { v: 'no', l: 'No' }]
+    },
+    {
+      key: 'q_downpayment_pct', q: '¿Qué porcentaje de la inversión total puedes aportar tú?',
+      opts: [{ v: '>=40', l: '40% o más' }, { v: '30-39', l: '30–39%' }, { v: '20-29', l: '20–29%' }, { v: '<20', l: 'Menos del 20%' }]
+    },
+    {
+      key: 'q_profile', q: '¿Cuál describe mejor tu perfil?',
+      opts: [{ v: 'investor', l: 'Inversor activo (busco rentabilidad con equipo)' }, { v: 'mixed', l: 'Perfil mixto (involucrado pero con equipo)' }, { v: 'operational', l: 'Perfil operativo (trabaja en el negocio)' }]
+    },
+    {
+      key: 'q_manager_option', q: '¿Tienes previsto tener un encargado que lleve el día a día?',
+      opts: [{ v: 'yes', l: 'Sí, ya lo tengo pensado' }, { v: 'thinking', l: 'Lo estoy valorando' }, { v: 'no', l: 'No, lo llevaré yo directamente' }, { v: 'no_idea', l: 'No lo he pensado' }]
+    },
+    {
+      key: 'q_demanding_hours', q: '¿Eres consciente de que hostelería implica horarios exigentes y fines de semana?',
+      opts: [{ v: 'yes', l: 'Sí, perfectamente' }, { v: 'somewhat', l: 'Más o menos' }, { v: 'no', l: 'No lo había valorado bien' }]
+    },
+    {
+      key: 'q_experience', q: '¿Tienes experiencia previa en hostelería o restauración?',
+      opts: [{ v: 'yes', l: 'Sí, experiencia sólida' }, { v: 'some', l: 'Algo de experiencia' }, { v: 'nothing', l: 'Sin experiencia' }]
+    },
+    {
+      key: 'q_people_mgmt', q: '¿Has gestionado equipos de personas anteriormente?',
+      opts: [{ v: 'yes', l: 'Sí, regularmente' }, { v: 'some', l: 'En alguna ocasión' }, { v: 'no', l: 'No' }]
+    },
+    {
+      key: 'q_recent_intent', q: '¿Has visitado algún local de nuestra franquicia recientemente?',
+      opts: [{ v: 'yes', l: 'Sí, en los últimos 3 meses' }, { v: 'no', l: 'No' }]
+    },
+  ];
+
+  const totalSteps = questions.length + 1; // +1 for contact block
+
+  const handleSelect = (key, value) => {
+    setAnswers(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleNext = () => {
+    if (step < totalSteps - 1) setStep(s => s + 1);
+  };
+  const handlePrev = () => { if (step > 0) setStep(s => s - 1); };
+
+  const handleSubmit = () => {
+    const score = calcScore(answers);
+    const label = calcLabel(answers, score);
+    const hour = new Date().getHours();
+    const isBusinessHours = hour >= 9 && hour < 18;
+    setResult({ score, label, isBusinessHours });
+  };
+
+  const currentQ = step < questions.length ? questions[step] : null;
+  const progress = step / (totalSteps - 1);
+
+  if (result) {
+    const msgs = {
+      A: {
+        day: '¡Perfil excelente! Tu candidatura tiene prioridad máxima. Un asesor te contactará hoy mismo.',
+        next: '¡Perfil excelente! Tu candidatura tiene prioridad máxima. Te contactaremos mañana a primera hora.'
+      },
+      B: {
+        day: 'Buen perfil. Tu candidatura está bajo revisión y te contactaremos en las próximas 24–48 horas.',
+        next: 'Buen perfil. Te contactaremos el siguiente día laborable.'
+      },
+      C: {
+        day: 'Gracias por tu interés. Revisaremos tu candidatura y te informaremos próximamente.',
+        next: 'Gracias por tu interés. Revisaremos tu candidatura en los próximos días.'
+      },
+    };
+    const msg = msgs[result.label][result.isBusinessHours ? 'day' : 'next'];
+    const labelColors = { A: 'var(--a-color)', B: 'var(--b-color)', C: 'var(--c-color)' };
+
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+        <div className="card animate-in" style={{ maxWidth: 480, width: '100%', textAlign: 'center', padding: 48 }}>
+          <div style={{ width: 80, height: 80, borderRadius: '50%', border: `3px solid ${labelColors[result.label]}`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', fontSize: 36, fontFamily: 'Syne', fontWeight: 800, color: labelColors[result.label] }}>
+            {result.label}
+          </div>
+          <div style={{ marginBottom: 8 }}>
+            <span className={`label label-${result.label}`} style={{ fontSize: 14, padding: '5px 14px' }}>Candidatura {result.label}</span>
+          </div>
+          <div style={{ marginTop: 16, marginBottom: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+            <span style={{ fontSize: 40, fontFamily: 'Syne', fontWeight: 700 }}>{result.score}</span>
+            <span style={{ color: 'var(--text3)', fontSize: 16 }}>/100</span>
+          </div>
+          <p style={{ color: 'var(--text2)', lineHeight: 1.7, fontSize: 15, marginTop: 20 }}>{msg}</p>
+          <p style={{ color: 'var(--text3)', fontSize: 12, marginTop: 24 }}>
+            {result.isBusinessHours ? '🕐 Son horario laborable' : '🌙 Fuera de horario — te contactamos mañana'}
+          </p>
+          <button className="btn btn-ghost" style={{ marginTop: 24 }} onClick={() => onNav('landing')}>Volver al inicio</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, paddingTop: 40 }}>
+      <div style={{ maxWidth: 560, width: '100%' }}>
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <div className="nav-logo" style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
+            <span style={{ fontSize: 22, fontFamily: 'Syne', fontWeight: 800, background: 'linear-gradient(135deg, #fff, var(--accent))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FranchiseCloser</span>
+            <span className="powered" style={{ fontSize: 9, color: 'var(--text3)' }}>Powered by ad+</span>
+          </div>
+          <p style={{ color: 'var(--text2)', fontSize: 14, marginTop: 8 }}>Candidatura de franquicia · {totalSteps} preguntas</p>
+        </div>
+
+        {/* Progress */}
+        <div className="progress-steps" style={{ marginBottom: 32 }}>
+          {Array.from({ length: totalSteps }).map((_, i) => (
+            <div key={i} className={`step ${i < step ? 'done' : i === step ? 'active' : ''}`} />
+          ))}
+        </div>
+
+        <div className="card animate-in" key={step}>
+          {currentQ ? (
+            <>
+              <div style={{ marginBottom: 20 }}>
+                <span style={{ fontSize: 11, color: 'var(--text3)', fontFamily: 'Syne', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.8px' }}>Pregunta {step + 1} de {totalSteps}</span>
+                <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 8, lineHeight: 1.4 }}>{currentQ.q}</h2>
+              </div>
+              <div className="radio-group">
+                {currentQ.opts.map(opt => (
+                  <div key={opt.v} className={`radio-option ${answers[currentQ.key] === opt.v ? 'selected' : ''}`} onClick={() => handleSelect(currentQ.key, opt.v)}>
+                    <div className={`radio-dot ${answers[currentQ.key] === opt.v ? 'selected' : ''}`} />
+                    <span>{opt.l}</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            /* Contact block */
+            <>
+              <div style={{ marginBottom: 20 }}>
+                <span style={{ fontSize: 11, color: 'var(--text3)', fontFamily: 'Syne', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.8px' }}>Pregunta 11–12 · Datos de contacto</span>
+                <h2 style={{ fontSize: 20, fontWeight: 700, marginTop: 8 }}>¿Cómo te contactamos?</h2>
+              </div>
+              <div style={{ display: 'grid', gap: 14 }}>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label className="form-label">Nombre y apellidos *</label>
+                  <input className="input" placeholder="Tu nombre completo" value={contact.full_name} onChange={e => setContact({...contact, full_name: e.target.value})} />
+                </div>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label className="form-label">Teléfono *</label>
+                  <input className="input" placeholder="+34 6XX XXX XXX" value={contact.phone} onChange={e => setContact({...contact, phone: e.target.value})} />
+                </div>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label className="form-label">Email *</label>
+                  <input className="input" type="email" placeholder="email@ejemplo.com" value={contact.email} onChange={e => setContact({...contact, email: e.target.value})} />
+                </div>
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label className="form-label">Preferencia de contacto</label>
+                  <select className="input" value={contact.contact_preference} onChange={e => setContact({...contact, contact_preference: e.target.value})}>
+                    <option value="phone">Teléfono</option>
+                    <option value="email">Email</option>
+                    <option value="whatsapp">WhatsApp</option>
+                  </select>
+                </div>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginTop: 4 }}>
+                  <input type="checkbox" id="rgpd" checked={rgpd} onChange={e => setRgpd(e.target.checked)} style={{ marginTop: 2, cursor: 'pointer' }} />
+                  <label htmlFor="rgpd" style={{ fontSize: 12, color: 'var(--text2)', cursor: 'pointer', lineHeight: 1.5 }}>
+                    He leído y acepto el tratamiento de mis datos personales conforme al <span style={{ color: 'var(--accent)' }}>Reglamento General de Protección de Datos (RGPD)</span>. Consiento que mis datos sean utilizados para gestionar mi candidatura de franquicia. *
+                  </label>
+                </div>
+              </div>
+            </>
+          )}
+
+          <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
+            {step > 0 && <button className="btn btn-ghost" onClick={handlePrev}>← Anterior</button>}
+            {step < totalSteps - 1 ? (
+              <button className="btn btn-primary" style={{ marginLeft: 'auto' }} disabled={currentQ && !answers[currentQ.key]} onClick={handleNext}>
+                Siguiente →
+              </button>
+            ) : (
+              <button className="btn btn-primary" style={{ marginLeft: 'auto' }} disabled={!rgpd || !contact.full_name || !contact.phone || !contact.email} onClick={handleSubmit}>
+                Enviar candidatura
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ==================== PANEL ====================
+function Panel({ currentUser = { id: 'u3', name: 'Pablo R.', role: 'sales' } }) {
+  const [view, setView] = useState('dashboard');
+  const [leads, setLeads] = useState(MOCK_LEADS);
+  const [selectedLead, setSelectedLead] = useState(null);
+  const [range, setRange] = useState('week');
+  const [filters, setFilters] = useState({ label: '', status: '', search: '' });
+  const [notif, setNotif] = useState(null);
+  const [showReasign, setShowReasign] = useState(false);
+
+  const showNotif = (msg, type = 'success') => {
+    setNotif({ msg, type });
+    setTimeout(() => setNotif(null), 3500);
+  };
+
+  const takeLead = (leadId) => {
+    setLeads(prev => prev.map(l => {
+      if (l.id !== leadId) return l;
+      return {
+        ...l, owner_id: currentUser.id, owner_name: currentUser.name, owner_assigned_at: new Date().toISOString(),
+        events: [...l.events, { type: 'owner_taken', actor: currentUser.name, at: new Date().toISOString(), desc: `Lead tomado por ${currentUser.name}` }]
+      };
+    }));
+    showNotif('Lead tomado. Ahora es tuyo.', 'success');
+    if (selectedLead?.id === leadId) {
+      setSelectedLead(prev => ({ ...prev, owner_id: currentUser.id, owner_name: currentUser.name }));
+    }
+  };
+
+  const logAttempt = (leadId) => {
+    setLeads(prev => prev.map(l => {
+      if (l.id !== leadId) return l;
+      const attemptNum = l.events.filter(e => e.type === 'attempt').length + 1;
+      return {
+        ...l, first_attempt_at: l.first_attempt_at || new Date().toISOString(), last_action_at: new Date().toISOString(),
+        events: [...l.events, { type: 'attempt', actor: currentUser.name, at: new Date().toISOString(), desc: `Intento ${attemptNum} registrado` }]
+      };
+    }));
+    showNotif('Intento registrado.', 'info');
+    setSelectedLead(prev => prev?.id === leadId ? { ...prev, first_attempt_at: prev.first_attempt_at || new Date().toISOString() } : prev);
+  };
+
+  const changeStatus = (leadId, newStatus) => {
+    setLeads(prev => prev.map(l => {
+      if (l.id !== leadId) return l;
+      return {
+        ...l, status: newStatus, last_action_at: new Date().toISOString(),
+        events: [...l.events, { type: 'status_change', actor: currentUser.name, at: new Date().toISOString(), desc: `Estado → ${statusLabels[newStatus]}` }]
+      };
+    }));
+    showNotif(`Estado actualizado: ${statusLabels[newStatus]}`, 'success');
+    setSelectedLead(prev => prev?.id === leadId ? { ...prev, status: newStatus } : prev);
+  };
+
+  // Filtered/sorted leads
+  const filteredLeads = leads
+    .filter(l => {
+      if (filters.label && l.label !== filters.label) return false;
+      if (filters.status && l.status !== filters.status) return false;
+      if (filters.search && !l.full_name.toLowerCase().includes(filters.search.toLowerCase()) && !l.province_city.toLowerCase().includes(filters.search.toLowerCase())) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      const lo = { A: 0, B: 1, C: 2 };
+      if (lo[a.label] !== lo[b.label]) return lo[a.label] - lo[b.label];
+      return new Date(b.created_at) - new Date(a.created_at);
+    });
+
+  // KPIs
+  const leadsA = leads.filter(l => l.label === 'A');
+  const leadsAOwnerFast = leadsA.filter(l => l.owner_assigned_at && (new Date(l.owner_assigned_at) - new Date(l.created_at)) < 30 * 60000);
+  const leadsASLAMet = leadsA.filter(l => l.first_attempt_at && l.first_attempt_deadline && new Date(l.first_attempt_at) <= new Date(l.first_attempt_deadline));
+  const citasA = leadsA.filter(l => l.status === 'meeting');
+
+  const navItems = [
+    { id: 'dashboard', icon: '◈', label: 'Dashboard' },
+    { id: 'leads', icon: '◉', label: 'Leads' },
+    { id: 'settings', icon: '◎', label: 'Ajustes' },
+  ];
+
+  return (
+    <div>
+      {/* Nav */}
+      <nav className="nav">
+        <div className="nav-logo">
+          <span style={{ background: 'linear-gradient(135deg, #fff, var(--accent))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FranchiseCloser</span>
+          <span className="powered">Powered by ad+</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 12, color: 'var(--text3)' }}>
+            {currentUser.name} · <span style={{ color: 'var(--accent2)' }}>{currentUser.role}</span>
+          </span>
+          <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent2), var(--accent))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#000' }}>
+            {currentUser.name.charAt(0)}
+          </div>
+        </div>
+      </nav>
+
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="sidebar-section">Navegación</div>
+        {navItems.map(item => (
+          <div key={item.id} className={`sidebar-item ${view === item.id ? 'active' : ''}`} onClick={() => { setView(item.id); setSelectedLead(null); }}>
+            <span>{item.icon}</span>
+            <span>{item.label}</span>
+          </div>
+        ))}
+        <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--border)' }}>
+          <div style={{ fontSize: 10, color: 'var(--text3)', textAlign: 'center' }}>Powered by ad+</div>
+        </div>
+      </aside>
+
+      {/* Main */}
+      <div className="main-content">
+        {notif && <Notif msg={notif.msg} type={notif.type} onClose={() => setNotif(null)} />}
+
+        {/* Dashboard */}
+        {view === 'dashboard' && !selectedLead && (
+          <div className="page">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+              <div>
+                <h1 style={{ fontSize: 22, fontWeight: 700 }}>Dashboard</h1>
+                <p style={{ color: 'var(--text3)', fontSize: 13 }}>KPIs del piloto en tiempo real</p>
+              </div>
+              <select className="input" style={{ width: 'auto' }} value={range} onChange={e => setRange(e.target.value)}>
+                <option value="week">Semana actual</option>
+                <option value="prev_week">Semana anterior</option>
+                <option value="30d">Últimos 30 días</option>
+              </select>
+            </div>
+            <div className="kpi-grid">
+              <div className="kpi-card kpi-blue">
+                <div className="kpi-label">Total leads</div>
+                <div className="kpi-value">{leads.length}</div>
+                <div className="kpi-sub">en el rango</div>
+              </div>
+              <div className="kpi-card kpi-green">
+                <div className="kpi-label">Leads A</div>
+                <div className="kpi-value" style={{ color: 'var(--a-color)' }}>{leadsA.length}</div>
+                <div className="kpi-sub">{Math.round(leadsA.length / leads.length * 100)}% del total</div>
+              </div>
+              <div className="kpi-card kpi-yellow">
+                <div className="kpi-label">A owner &lt;30m</div>
+                <div className="kpi-value" style={{ color: 'var(--yellow)' }}>{leadsAOwnerFast.length}</div>
+                <div className="kpi-sub">{leadsA.length > 0 ? Math.round(leadsAOwnerFast.length / leadsA.length * 100) : 0}% de A</div>
+              </div>
+              <div className="kpi-card kpi-blue">
+                <div className="kpi-label">A Intento 1 SLA</div>
+                <div className="kpi-value" style={{ color: 'var(--accent)' }}>{leadsASLAMet.length}</div>
+                <div className="kpi-sub">dentro de plazo</div>
+              </div>
+              <div className="kpi-card kpi-green">
+                <div className="kpi-label">Citas desde A</div>
+                <div className="kpi-value" style={{ color: 'var(--green)' }}>{citasA.length}</div>
+                <div className="kpi-sub">{leadsA.length > 0 ? Math.round(citasA.length / leadsA.length * 100) : 0}% de A</div>
+              </div>
+            </div>
+
+            {/* Mini-table preview */}
+            <div className="card" style={{ marginTop: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                <h3 style={{ fontSize: 16, fontWeight: 600 }}>Leads recientes</h3>
+                <button className="btn btn-ghost btn-sm" onClick={() => setView('leads')}>Ver todos</button>
+              </div>
+              <div className="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Etiqueta</th><th>Score</th><th>Nombre</th><th>Zona</th><th>Owner</th><th>Estado</th><th>Hace</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {leads.slice(0, 5).map(l => (
+                      <tr key={l.id} onClick={() => { setSelectedLead(l); setView('leads'); }}>
+                        <td><span className={`label label-${l.label}`}>{l.label}</span></td>
+                        <td><ScoreBar score={l.score} label={l.label} /></td>
+                        <td style={{ fontWeight: 500 }}>{l.full_name}</td>
+                        <td style={{ color: 'var(--text2)' }}>{l.province_city}</td>
+                        <td>
+                          {l.owner_name
+                            ? <span style={{ fontSize: 12, color: 'var(--text2)' }}>{l.owner_name}</span>
+                            : <span style={{ fontSize: 11, color: 'var(--text3)' }}>Sin owner</span>}
+                        </td>
+                        <td><span className={`label ${statusColors[l.status]}`}>{statusLabels[l.status]}</span></td>
+                        <td style={{ color: 'var(--text3)', fontSize: 12 }}>{fmtRelative(l.created_at)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Distribución */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 16 }}>
+              <div className="card">
+                <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 16 }}>Distribución A/B/C</h3>
+                {['A', 'B', 'C'].map(lb => {
+                  const count = leads.filter(l => l.label === lb).length;
+                  const pct = Math.round(count / leads.length * 100);
+                  const clr = lb === 'A' ? 'var(--a-color)' : lb === 'B' ? 'var(--b-color)' : 'var(--c-color)';
+                  return (
+                    <div key={lb} style={{ marginBottom: 10 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4, fontSize: 12 }}>
+                        <span className={`label label-${lb}`}>{lb}</span>
+                        <span style={{ color: 'var(--text3)' }}>{count} leads ({pct}%)</span>
+                      </div>
+                      <div style={{ height: 6, background: 'var(--border)', borderRadius: 3, overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: `${pct}%`, background: clr, borderRadius: 3, transition: 'width 0.8s ease' }} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="card">
+                <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 16 }}>Estados</h3>
+                {Object.entries(statusLabels).map(([key, label]) => {
+                  const count = leads.filter(l => l.status === key).length;
+                  if (count === 0) return null;
+                  return (
+                    <div key={key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8, fontSize: 13 }}>
+                      <span className={`label ${statusColors[key]}`}>{label}</span>
+                      <span style={{ fontFamily: 'Syne', fontWeight: 600 }}>{count}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Leads table */}
+        {view === 'leads' && !selectedLead && (
+          <div className="page">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <h1 style={{ fontSize: 22, fontWeight: 700 }}>Cola de leads</h1>
+              <select className="input" style={{ width: 'auto' }} value={range} onChange={e => setRange(e.target.value)}>
+                <option value="week">Semana actual</option>
+                <option value="prev_week">Semana anterior</option>
+                <option value="30d">Últimos 30 días</option>
+              </select>
+            </div>
+
+            {/* Filters */}
+            <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+              <input className="input" style={{ width: 220 }} placeholder="Buscar por nombre o zona..." value={filters.search} onChange={e => setFilters({...filters, search: e.target.value})} />
+              <select className="input" style={{ width: 140 }} value={filters.label} onChange={e => setFilters({...filters, label: e.target.value})}>
+                <option value="">Etiqueta: Todas</option>
+                <option value="A">Solo A</option>
+                <option value="B">Solo B</option>
+                <option value="C">Solo C</option>
+              </select>
+              <select className="input" style={{ width: 160 }} value={filters.status} onChange={e => setFilters({...filters, status: e.target.value})}>
+                <option value="">Estado: Todos</option>
+                {Object.entries(statusLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+              </select>
+              {(filters.label || filters.status || filters.search) && (
+                <button className="btn btn-ghost btn-sm" onClick={() => setFilters({ label: '', status: '', search: '' })}>Limpiar filtros</button>
+              )}
+            </div>
+
+            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+              <div className="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Fecha/Hora</th>
+                      <th>Etiqueta</th>
+                      <th>Score</th>
+                      <th>Zona/Ciudad</th>
+                      <th>Nombre</th>
+                      <th>Teléfono</th>
+                      <th>Owner</th>
+                      <th>Estado</th>
+                      <th>SLA</th>
+                      <th>Última acción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredLeads.length === 0 && (
+                      <tr><td colSpan={10} style={{ textAlign: 'center', padding: 40, color: 'var(--text3)' }}>Sin leads que mostrar</td></tr>
+                    )}
+                    {filteredLeads.map(l => (
+                      <tr key={l.id} onClick={() => setSelectedLead(l)} style={{ cursor: 'pointer' }}>
+                        <td style={{ color: 'var(--text3)', fontSize: 12, whiteSpace: 'nowrap' }}>{fmtDate(l.created_at)}</td>
+                        <td><span className={`label label-${l.label}`}>{l.label}</span></td>
+                        <td><ScoreBar score={l.score} label={l.label} /></td>
+                        <td style={{ color: 'var(--text2)' }}>{l.province_city}</td>
+                        <td style={{ fontWeight: 500 }}>{l.full_name}</td>
+                        <td style={{ color: 'var(--text2)', fontSize: 12 }}>{l.phone}</td>
+                        <td>
+                          {l.owner_name
+                            ? <span style={{ fontSize: 12 }}>{l.owner_name}</span>
+                            : (
+                              <button className="btn btn-success btn-sm" style={{ fontSize: 11 }}
+                                onClick={e => { e.stopPropagation(); takeLead(l.id); }}>
+                                + Tomar
+                              </button>
+                            )}
+                        </td>
+                        <td><span className={`label ${statusColors[l.status]}`} style={{ fontSize: 11 }}>{statusLabels[l.status]}</span></td>
+                        <td>
+                          {l.label === 'A' && l.first_attempt_deadline && !l.first_attempt_at
+                            ? <SLACountdown deadline={l.first_attempt_deadline} />
+                            : l.label === 'A' && l.first_attempt_at
+                              ? <span style={{ fontSize: 11, color: 'var(--green)' }}>✓ Intentado</span>
+                              : <span style={{ color: 'var(--text3)', fontSize: 11 }}>—</span>
+                          }
+                        </td>
+                        <td style={{ color: 'var(--text3)', fontSize: 12 }}>
+                          {l.last_action_at ? fmtRelative(l.last_action_at) : fmtRelative(l.created_at)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Lead detail */}
+        {selectedLead && (
+          <div className="page animate-in">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+              <button className="btn btn-ghost btn-sm" onClick={() => setSelectedLead(null)}>← Volver</button>
+              <h1 style={{ fontSize: 20, fontWeight: 700 }}>{selectedLead.full_name}</h1>
+              <span className={`label label-${selectedLead.label}`}>{selectedLead.label}</span>
+              <span className={`label ${statusColors[selectedLead.status]}`}>{statusLabels[selectedLead.status]}</span>
+            </div>
+
+            <div className="lead-grid">
+              {/* Left */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {/* Score card */}
+                <div className="card" style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
+                  <div style={{ textAlign: 'center', minWidth: 80 }}>
+                    <div style={{ fontSize: 48, fontFamily: 'Syne', fontWeight: 800, color: selectedLead.label === 'A' ? 'var(--a-color)' : selectedLead.label === 'B' ? 'var(--b-color)' : 'var(--c-color)', lineHeight: 1 }}>{selectedLead.score}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text3)', marginTop: 2 }}>/ 100</div>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ height: 8, background: 'var(--border)', borderRadius: 4, overflow: 'hidden', marginBottom: 12 }}>
+                      <div style={{ height: '100%', width: `${selectedLead.score}%`, background: `linear-gradient(90deg, var(--accent2), var(--accent))`, borderRadius: 4 }} />
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 12 }}>
+                      <div><span style={{ color: 'var(--text3)' }}>Ciudad: </span><span>{selectedLead.province_city}</span></div>
+                      <div><span style={{ color: 'var(--text3)' }}>Entrada: </span><span>{selectedLead.q_downpayment_pct}</span></div>
+                      <div><span style={{ color: 'var(--text3)' }}>Capital: </span><span>{selectedLead.q_capital}</span></div>
+                      <div><span style={{ color: 'var(--text3)' }}>Plazo: </span><span>{selectedLead.q_deadline}</span></div>
+                      <div><span style={{ color: 'var(--text3)' }}>Financiación: </span><span>{selectedLead.q_financing}</span></div>
+                      <div><span style={{ color: 'var(--text3)' }}>Perfil: </span><span>{selectedLead.q_profile}</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Reasons & Risks */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                  <div className="card">
+                    <h4 style={{ fontSize: 12, fontWeight: 600, color: 'var(--a-color)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 12, fontFamily: 'Syne' }}>✓ Puntos fuertes</h4>
+                    {selectedLead.score_reasons.map((r, i) => (
+                      <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 8, fontSize: 12, lineHeight: 1.5 }}>
+                        <span style={{ color: 'var(--a-color)', flexShrink: 0 }}>•</span>
+                        <span style={{ color: 'var(--text2)' }}>{r}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="card">
+                    <h4 style={{ fontSize: 12, fontWeight: 600, color: 'var(--yellow)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 12, fontFamily: 'Syne' }}>⚠ Riesgos</h4>
+                    {selectedLead.risk_flags.map((r, i) => (
+                      <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 8, fontSize: 12, lineHeight: 1.5 }}>
+                        <span style={{ color: 'var(--yellow)', flexShrink: 0 }}>•</span>
+                        <span style={{ color: 'var(--text2)' }}>{r}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Call script */}
+                {selectedLead.call_script && (
+                  <div className="card" style={{ borderColor: 'rgba(0,136,255,0.2)', background: 'rgba(0,136,255,0.04)' }}>
+                    <h4 style={{ fontSize: 12, fontWeight: 600, color: 'var(--accent2)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 10, fontFamily: 'Syne' }}>📞 Guión de llamada</h4>
+                    <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.7, fontStyle: 'italic' }}>"{selectedLead.call_script}"</p>
+                  </div>
+                )}
+
+                {/* Contact info */}
+                <div className="card">
+                  <h4 style={{ fontSize: 12, fontWeight: 600, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 12, fontFamily: 'Syne' }}>Datos de contacto</h4>
+                  <div style={{ display: 'grid', gap: 8, fontSize: 13 }}>
+                    <div style={{ display: 'flex', gap: 8 }}><span style={{ color: 'var(--text3)' }}>📱</span><span>{selectedLead.phone}</span></div>
+                    <div style={{ display: 'flex', gap: 8 }}><span style={{ color: 'var(--text3)' }}>✉️</span><span>{selectedLead.email}</span></div>
+                    <div style={{ display: 'flex', gap: 8 }}><span style={{ color: 'var(--text3)' }}>💬</span><span>Preferencia: {selectedLead.contact_preference}</span></div>
+                    <div style={{ display: 'flex', gap: 8 }}><span style={{ color: 'var(--text3)' }}>🕐</span><span>Recibido: {fmtDate(selectedLead.created_at)}</span></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right panel */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {/* Actions */}
+                <div className="card">
+                  <h4 style={{ fontSize: 12, fontWeight: 600, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 14, fontFamily: 'Syne' }}>Acciones</h4>
+
+                  {/* Owner */}
+                  <div style={{ marginBottom: 14 }}>
+                    <div style={{ fontSize: 12, color: 'var(--text3)', marginBottom: 6 }}>Owner</div>
+                    {selectedLead.owner_id ? (
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent2), var(--accent))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#000' }}>
+                            {selectedLead.owner_name.charAt(0)}
+                          </div>
+                          <span style={{ fontSize: 13 }}>{selectedLead.owner_name}</span>
                         </div>
-                    </div>
-                );
-            }
-        }
+                        {(currentUser.role === 'manager' || currentUser.role === 'admin') && (
+                          <button className="btn btn-ghost btn-sm" onClick={() => setShowReasign(true)}>Reasignar</button>
+                        )}
+                      </div>
+                    ) : (
+                      <button className="btn btn-success" style={{ width: '100%' }} onClick={() => takeLead(selectedLead.id)}>
+                        + Tomar este lead
+                      </button>
+                    )}
+                  </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+                  <div style={{ height: 1, background: 'var(--border)', marginBottom: 14 }} />
+
+                  {/* SLA */}
+                  {selectedLead.label === 'A' && selectedLead.first_attempt_deadline && (
+                    <div style={{ marginBottom: 14 }}>
+                      <div style={{ fontSize: 12, color: 'var(--text3)', marginBottom: 4 }}>SLA Intento 1</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: 12, color: 'var(--text2)' }}>Deadline: {fmtDate(selectedLead.first_attempt_deadline)}</span>
+                        {!selectedLead.first_attempt_at && <SLACountdown deadline={selectedLead.first_attempt_deadline} />}
+                        {selectedLead.first_attempt_at && <span style={{ fontSize: 11, color: 'var(--green)' }}>✓ Cumplido</span>}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Log attempt */}
+                  {selectedLead.owner_id === currentUser.id && (
+                    <button className="btn btn-warning" style={{ width: '100%', marginBottom: 10 }} onClick={() => logAttempt(selectedLead.id)}>
+                      📞 Registrar intento
+                    </button>
+                  )}
+
+                  <div style={{ height: 1, background: 'var(--border)', marginBottom: 14 }} />
+
+                  {/* Status changes */}
+                  <div style={{ fontSize: 12, color: 'var(--text3)', marginBottom: 8 }}>Cambiar estado</div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                    {[
+                      { k: 'contacted', label: 'Contactado', cls: 'status-contacted' },
+                      { k: 'meeting', label: 'Cita', cls: 'status-meeting' },
+                      { k: 'no_answer', label: 'No responde', cls: 'status-no_answer' },
+                      { k: 'discarded', label: 'Descartar', cls: 'status-discarded' },
+                    ].map(s => (
+                      <button key={s.k} className={`btn btn-sm label ${s.cls}`}
+                        style={{ justifyContent: 'center', opacity: selectedLead.status === s.k ? 1 : 0.6 }}
+                        onClick={() => changeStatus(selectedLead.id, s.k)}>
+                        {selectedLead.status === s.k ? '✓ ' : ''}{s.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Timeline */}
+                <div className="card" style={{ flex: 1 }}>
+                  <h4 style={{ fontSize: 12, fontWeight: 600, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 16, fontFamily: 'Syne' }}>Historial</h4>
+                  <div className="timeline">
+                    {[...selectedLead.events].reverse().map((ev, i) => {
+                      const dotColors = {
+                        lead_created: 'var(--accent2)', owner_taken: 'var(--green)', attempt: 'var(--yellow)',
+                        status_change: 'var(--accent)', email_sent: 'var(--text3)'
+                      };
+                      return (
+                        <div key={i} className="timeline-item">
+                          <div className="timeline-dot" style={{ background: dotColors[ev.type] || 'var(--text3)' }} />
+                          <div className="timeline-content">
+                            <div className="timeline-text">{ev.desc}</div>
+                            <div className="timeline-time">{ev.actor} · {fmtRelative(ev.at)}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Settings */}
+        {view === 'settings' && (
+          <div className="page">
+            <h1 style={{ fontSize: 22, fontWeight: 700, marginBottom: 6 }}>Ajustes</h1>
+            <p style={{ color: 'var(--text3)', fontSize: 13, marginBottom: 28 }}>Configuración de zonas, SLA y notificaciones</p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, maxWidth: 900 }}>
+              {/* SLA */}
+              <div className="card">
+                <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 20 }}>⏱ Parámetros SLA</h3>
+                {[
+                  { l: 'Inicio jornada', v: '09:00', type: 'time' },
+                  { l: 'Fin jornada', v: '18:00', type: 'time' },
+                  { l: 'SLA lead A (horas)', v: '2', type: 'number' },
+                  { l: 'Hora corte SLA', v: '16:00', type: 'time' },
+                  { l: 'Deadline día siguiente', v: '11:00', type: 'time' },
+                ].map(s => (
+                  <div key={s.l} className="form-group" style={{ marginBottom: 14 }}>
+                    <label className="form-label">{s.l}</label>
+                    <input className="input" type={s.type} defaultValue={s.v} />
+                  </div>
+                ))}
+                <button className="btn btn-primary" style={{ width: '100%' }}>Guardar SLA</button>
+              </div>
+
+              {/* Emails */}
+              <div className="card">
+                <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 20 }}>📧 Emails de notificación</h3>
+                <div className="form-group">
+                  <label className="form-label">Emails del equipo (cola)</label>
+                  <input className="input" defaultValue="equipo@franquicia.es, comercial@franquicia.es" />
+                  <div className="form-hint">Separar con comas. Reciben: nuevo A sin owner, recordatorio 30m.</div>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Emails manager (escalado)</label>
+                  <input className="input" defaultValue="manager@franquicia.es" />
+                  <div className="form-hint">Reciben: escalado 60m, breach SLA intento 1.</div>
+                </div>
+                <button className="btn btn-primary" style={{ width: '100%' }}>Guardar emails</button>
+              </div>
+
+              {/* Zones */}
+              <div className="card" style={{ gridColumn: '1 / -1' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 600 }}>🗺 Zonas</h3>
+                  <button className="btn btn-primary btn-sm">+ Nueva zona</button>
+                </div>
+                <div style={{ display: 'grid', gap: 10 }}>
+                  {[
+                    { name: 'Zona Centro', provinces: 'Madrid, Toledo, Guadalajara, Ávila, Segovia' },
+                    { name: 'Zona Nordeste', provinces: 'Barcelona, Girona, Tarragona, Lleida' },
+                    { name: 'Zona Sur', provinces: 'Sevilla, Málaga, Granada, Córdoba, Cádiz' },
+                  ].map(z => (
+                    <div key={z.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: 'var(--surface2)', border: '1px solid var(--border)', borderRadius: 8 }}>
+                      <div>
+                        <div style={{ fontWeight: 500, fontSize: 14 }}>{z.name}</div>
+                        <div style={{ fontSize: 12, color: 'var(--text3)', marginTop: 2 }}>{z.provinces}</div>
+                      </div>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <button className="btn btn-ghost btn-sm">Editar</button>
+                        <button className="btn btn-danger btn-sm">Eliminar</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Reasign modal */}
+      {showReasign && (
+        <div className="overlay" onClick={e => e.target === e.currentTarget && setShowReasign(false)}>
+          <div className="modal">
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 20 }}>Reasignar lead</h3>
+            <div className="form-group">
+              <label className="form-label">Asignar a</label>
+              <select className="input">
+                <option>Pablo R. (comercial)</option>
+                <option>Laura M. (comercial)</option>
+                <option>Ana S. (comercial)</option>
+              </select>
+            </div>
+            <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
+              <button className="btn btn-ghost" style={{ flex: 1 }} onClick={() => setShowReasign(false)}>Cancelar</button>
+              <button className="btn btn-primary" style={{ flex: 2 }} onClick={() => { showNotif('Lead reasignado.', 'success'); setShowReasign(false); }}>Confirmar reasignación</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ==================== APP ROUTER ====================
+function App() {
+  const [page, setPage] = useState('landing');
+
+  return (
+    <div>
+      {page === 'landing' && <LandingPage onNav={setPage} />}
+      {page === 'apply' && <ApplyForm onNav={setPage} />}
+      {page === 'panel' && <Panel />}
+
+      {/* Demo navigation bar */}
+      <div style={{ position: 'fixed', bottom: 20, left: '50%', transform: 'translateX(-50%)', zIndex: 1000, display: 'flex', gap: 8, background: 'rgba(18,20,26,0.95)', border: '1px solid var(--border2)', borderRadius: 40, padding: '8px 12px', backdropFilter: 'blur(12px)', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
+        <span style={{ fontSize: 11, color: 'var(--text3)', padding: '6px 8px', fontFamily: 'Syne', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.6px' }}>Demo:</span>
+        {[
+          { k: 'landing', l: 'Landing B2B' },
+          { k: 'apply', l: 'Formulario' },
+          { k: 'panel', l: 'Panel' },
+        ].map(p => (
+          <button key={p.k} className="btn btn-sm" onClick={() => setPage(p.k)}
+            style={{ background: page === p.k ? 'linear-gradient(135deg, var(--accent2), var(--accent))' : 'transparent', color: page === p.k ? '#000' : 'var(--text2)', border: page === p.k ? 'none' : '1px solid var(--border)', fontWeight: page === p.k ? 600 : 400 }}>
+            {p.l}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+</script>
 </body>
 </html>
