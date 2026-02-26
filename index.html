@@ -106,6 +106,7 @@
                 </div>
             </footer>
         );
+        
 
         // --- Page Components ---
 
@@ -143,6 +144,99 @@
                                     </div>
                                 </div>
                             </div>
+                            // ... (continuación del código del Dashboard)
+                            <div class="bg-primary rounded-lg p-1.5 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-white text-xl">rocket_launch</span>
+                            </div>
+                            <h2 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">FranchiseCloser</h2>
+                        </Link>
+                        <div class="flex items-center gap-4">
+                            <div class="hidden md:flex flex-col items-end">
+                                <span class="text-sm font-bold">Admin Panel</span>
+                                <span class="text-xs text-emerald-500 flex items-center gap-1">
+                                    <span class="size-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Sistema Activo
+                                </span>
+                            </div>
+                            <button onClick={() => navigate('/')} class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined">logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <main class="max-w-7xl mx-auto w-full p-4 md:p-8 space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {[
+                            { label: 'Leads Totales', value: '1,284', grow: '+12%', color: 'text-primary' },
+                            { label: 'Cualificados (Tipo A)', value: '142', grow: '+5%', color: 'text-emerald-500' },
+                            { label: 'Cierre Estimado', value: '€42.5k', grow: '+18%', color: 'text-blue-500' }
+                        ].map((stat, i) => (
+                            <div key={i} class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                                <p class="text-sm font-medium text-slate-500 mb-1">{stat.label}</p>
+                                <div class="flex items-baseline justify-between">
+                                    <h3 class={`text-3xl font-black ${stat.color}`}>{stat.value}</h3>
+                                    <span class="text-xs font-bold bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 px-2 py-1 rounded-full">{stat.grow}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                        <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                            <h3 class="font-bold text-lg">Últimos Leads Cualificados</h3>
+                            <span class="text-xs font-bold text-primary cursor-pointer hover:underline">Ver todos</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 uppercase text-[10px] font-black tracking-widest">
+                                    <tr>
+                                        <th class="px-6 py-4">Candidato</th>
+                                        <th class="px-6 py-4">Inversión</th>
+                                        <th class="px-6 py-4">Estado</th>
+                                        <th class="px-6 py-4 text-right">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    {[
+                                        { name: 'Juan Pérez', inv: '50,000€', status: 'Pendiente', type: 'A' },
+                                        { name: 'Maria García', inv: '120,000€', status: 'Contactado', type: 'A+' },
+                                        { name: 'Roberto S.', inv: '35,000€', status: 'Cualificando', type: 'B' }
+                                    ].map((lead, i) => (
+                                        <tr key={i} class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                                            <td class="px-6 py-4 font-bold">{lead.name}</td>
+                                            <td class="px-6 py-4">{lead.inv}</td>
+                                            <td class="px-6 py-4">
+                                                <span class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-[10px] font-bold uppercase">{lead.status}</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-right">
+                                                <button class="text-primary material-symbols-outlined">chat</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        );
+
+        const App = () => {
+            return (
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/onboarding" element={<OnboardingPage />} />
+                        <Route path="/success" element={<SuccessPage />} />
+                        <Route path="/dashboard" element={<DashboardPage />} />
+                    </Routes>
+                </MemoryRouter>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
                         </div>
                     </section>
 
